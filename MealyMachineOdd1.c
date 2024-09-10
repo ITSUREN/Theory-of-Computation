@@ -3,42 +3,18 @@
 
 #define MAX 100
 
-// Define states
+// Define states and transition function
 typedef enum { q0, q1 } State;
-
-// Function to get the next state and output
-void delta(State current_state, char input, State *next_state, int *output) {
-    switch (current_state) {
-        case q0: // Even number of 1's
-            if (input == '1') {
-                *next_state = q1; // Transition to odd number of 1's
-                *output = 1;
-            } else {
-                *next_state = q0; // Stay in even state
-                *output = 0;
-            }
-            break;
-        case q1: // Odd number of 1's
-            if (input == '1') {
-                *next_state = q0; // Transition to even number of 1's
-                *output = 0;
-            } else {
-                *next_state = q1; // Stay in odd state
-                *output = 1;
-            }
-            break;
-    }
-}
+void delta(State, char, State *, int *);
 
 int main() {
     char input[MAX];
-    State current_state = q0; // Initial state is q0 (even number of 1's)
-    State next_state;
+    State current_state = q0; State next_state;
     int output;
     
-    printf("Enter a string (consisting of only '0' and '1'): ");
+    printf("Enter a binary string: ");
     fgets(input, MAX, stdin);
-    input[strcspn(input, "\n")] = 0; // Remove newline character if present
+    input[strcspn(input, "\n")] = 0;
     
     for (int i = 0; i < strlen(input); ++i) {
         delta(current_state, input[i], &next_state, &output);
@@ -46,8 +22,29 @@ int main() {
         printf("Input: %c, Output: %d\n", input[i], output);
     }
     
-    // Final output
     printf("Final output: %d\n", output);
-    
     return 0;
+}
+
+void delta(State current_state, char input, State *next_state, int *output) {
+    switch (current_state) {
+        case q0:
+            if (input == '1') {
+                *next_state = q1;
+                *output = 1;
+            } else {
+                *next_state = q0;
+                *output = 0;
+            }
+            break;
+        case q1:
+            if (input == '1') {
+                *next_state = q0;
+                *output = 0;
+            } else {
+                *next_state = q1;
+                *output = 1;
+            }
+            break;
+    }
 }

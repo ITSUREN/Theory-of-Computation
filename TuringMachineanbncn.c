@@ -4,12 +4,8 @@
 
 #define MAX_TAPE_LENGTH 100
 
-typedef enum {
-    q0, q1, q2, q3, q4, q5
-} State;
-
-void initialize_tape(char tape[], const char *input);
-void print_tape(char tape[], int head_position);
+// State Definitions and Turing Function prototyping
+typedef enum { q0, q1, q2, q3, q4, q5 } State;
 bool turing_machine(char tape[], int tape_length);
 
 int main() {
@@ -35,7 +31,6 @@ int main() {
     return 0;
 }
 
-// Run the Turing machine
 bool turing_machine(char tape[], int tape_length) {
     State state = q0;
     int head = 0;
@@ -47,12 +42,12 @@ bool turing_machine(char tape[], int tape_length) {
                 if (tape[head] == 'a') {
                     tape[head] = 'X'; // Mark 'a'
                     head++;
-                    state = q1; // Move to state q1
+                    state = q1; 
                 } else if (tape[head] == 'Y') {
                     head++;
                     state = q4;
                 } else {
-                    return false; // Invalid input
+                    return false; 
                 }
                 break;
             case q1:
@@ -61,9 +56,9 @@ bool turing_machine(char tape[], int tape_length) {
                 } else if (tape[head] == 'b') {
                     tape[head] = 'Y'; // Mark 'b'
                     head++;
-                    state = q2; // Move to state q2
+                    state = q2;
                 } else {
-                    return false; // Invalid input
+                    return false; 
                 }
                 break;
 
@@ -73,9 +68,9 @@ bool turing_machine(char tape[], int tape_length) {
                 } else if (tape[head] == 'c') {
                     tape[head] = 'Z'; // Mark 'c'
                     head--;
-                    state = q3; // Move to state q3
+                    state = q3;
                 } else {
-                    return false; // Invalid input
+                    return false; 
                 }
                 break;
 
@@ -86,7 +81,7 @@ bool turing_machine(char tape[], int tape_length) {
                     head++;
                     state=q0;
                 } else {
-                    return false; // Invalid input
+                    return false; 
                 }
                 break;
 
@@ -94,9 +89,9 @@ bool turing_machine(char tape[], int tape_length) {
                 if (tape[head] == 'Y' || tape[head] == 'Z') {
                     head++;
                 } else if (tape[head] == '\0') {
-                    state = q5; // Move to state q0
+                    state = q5; 
                 } else {
-                    return false; // Invalid input
+                    return false; 
                 }
                 break;
         }
