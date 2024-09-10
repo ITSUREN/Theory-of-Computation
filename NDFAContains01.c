@@ -6,9 +6,7 @@
 
 // Define states
 typedef enum { q0, q1, q2 } states;
-// Transition function for NDFA
 void delta(const bool current_states[], char ch, bool next_states[]);
-// Check each symbol
 bool process_input(const char *string);
 
 int main() {
@@ -16,7 +14,7 @@ int main() {
     
     printf("Enter a string: ");
     fgets(string, MAX, stdin);
-    string[strcspn(string, "\n")] = 0; // Remove newline character
+    string[strcspn(string, "\n")] = 0;
     
     if (process_input(string)) {
         printf("\nThe string %s is valid.\n", string);
@@ -37,7 +35,7 @@ bool process_input(const char *string) {
     while (ch != '\0') {
         // Compute the next set of states
         delta(current_states, ch, next_states);
-        
+
         // Update current states
         for (int j = 0; j < STATE_COUNT; ++j) {
             current_states[j] = next_states[j];

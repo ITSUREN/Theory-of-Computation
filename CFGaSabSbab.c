@@ -4,32 +4,8 @@
 
 #define MAX 100
 
-// Function prototypes
+// brute parser prototyping
 bool parse_S(const char *input, int start, int end);
-
-// Check if a substring from `start` to `end` matches the CFG rule
-bool parse_S(const char *input, int start, int end) {
-    if (start > end) {
-        return false;
-    }
-
-    // Base cases for single characters
-    if (start == end) {
-        return input[start] == 'a' || input[start] == 'b';
-    }
-
-    // Try matching the rule S -> aSa
-    if (input[start] == 'a' && input[end] == 'a') {
-        return parse_S(input, start + 1, end - 1);
-    }
-
-    // Try matching the rule S -> bSb
-    if (input[start] == 'b' && input[end] == 'b') {
-        return parse_S(input, start + 1, end - 1);
-    }
-
-    return false;
-}
 
 int main() {
     char input[MAX];
@@ -48,4 +24,28 @@ int main() {
     }
 
     return 0;
+}
+
+// Check if a substring from `start` to `end` matches the CFG rule
+bool parse_S(const char *input, int start, int end) {
+    if (start > end) {
+        return false;
+    }
+
+    // Base cases for single characters: S->a | S-> b
+    if (start == end) {
+        return input[start] == 'a' || input[start] == 'b';
+    }
+
+    // Try matching the rule S -> aSa
+    if (input[start] == 'a' && input[end] == 'a') {
+        return parse_S(input, start + 1, end - 1);
+    }
+
+    // Try matching the rule S -> bSb
+    if (input[start] == 'b' && input[end] == 'b') {
+        return parse_S(input, start + 1, end - 1);
+    }
+
+    return false;
 }
