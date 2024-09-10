@@ -1,34 +1,31 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX 20
+#define MAX_INPUT_LENGTH 20
 
+// State Definitions and function prototyping
 enum states { q0, q1, q2, qf };
-
 void push(char ch);
 void pop();
 char get_stack_top();
 enum states delta(enum states, char, char);
 
 struct stack {
-    char symbols[MAX];
+    char symbols[MAX_INPUT_LENGTH];
     int top;
-};
-
-struct stack s;
+} s;
 
 int main() {
-    char input[MAX];
+    char input[MAX_INPUT_LENGTH];
     enum states curr_state = q0;
     s.top = -1;
     int i = 0;
-    char ch = 'e';
-    char st_top = 'e';
+    char ch = 'e', st_top = 'e';
 
     curr_state = delta(curr_state, ch, st_top);
 
     printf("\n Enter a binary string: ");
-    fgets(input, MAX, stdin);
+    fgets(input, MAX_INPUT_LENGTH, stdin);
     input[strcspn(input, "\n")] = 0;
 
     ch = input[i];
@@ -78,7 +75,6 @@ enum states delta(enum states s, char ch, char st_top) {
             }
             break;
     }
-
     return curr_state;
 }
 
@@ -87,7 +83,7 @@ char get_stack_top() {
 }
 
 void push(char ch) {
-    if (s.top < MAX - 1) {
+    if (s.top < MAX_INPUT_LENGTH - 1) {
         s.symbols[++s.top] = ch;
     } else {
         printf("\n Stack Full.");

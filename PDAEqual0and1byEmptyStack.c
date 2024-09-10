@@ -2,8 +2,9 @@
 // equal number of 0s and 1s , acceptance by empty stack
 #include<stdio.h>
 #include<string.h>
-#define MAX 20
+#define MAX_INPUT_LENGTH 20
 
+// State Definition and function prototyping
 enum states { q0 };
 void push(char ch);
 void pop();
@@ -11,23 +12,20 @@ char get_stack_top();
 enum states delta(enum states, char, char);
 
 struct stack {
-	char symbols[MAX];
+	char symbols[MAX_INPUT_LENGTH];
 	int top;
-};
-
-struct stack s;
+} s;
 
 int main() {
-	char input[MAX];
+	char input[MAX_INPUT_LENGTH];
 	enum states curr_state = q0;
 	s.top = -1;
 	int i =0;
-	char ch = 'e'; 
-	char st_top = 'e';
+	char ch = 'e', st_top = 'e';
 	curr_state = delta(curr_state,ch,st_top);
 	
 	printf("\n Enter a binary string: ");
-	fgets(input, MAX, stdin);
+	fgets(input, MAX_INPUT_LENGTH, stdin);
 	input[strcspn(input, "\n")]=0;
 	
 	ch = input[i];
@@ -40,60 +38,53 @@ int main() {
 		st_top=get_stack_top();
 		c++;
     }
-	if(s.symbols[s.top] == '$')
+	if (s.symbols[s.top] == '$')
 	   printf("\n The string %s is accepted.\n",input);
 	else 
 	    printf("\n The string %s is not accepted.\n",input);	    
-   return 0;			
+    return 0;			
 }
 
 enum states delta(enum states s, char ch, char st_top) {
-	   enum states curr_state;
-		switch(s) {
-			case q0:
-				if(ch=='e' && st_top=='e') {
-					curr_state = q0;
-					push('$');
-				}
-			    else	if(ch=='0' && (st_top=='$' ||st_top=='0')) {
-					curr_state = q0;
-					push(ch);
-				}
-				else if(ch=='1' && (st_top=='$'||st_top=='1')) {
-					curr_state = q0;
-					push(ch);
-				}
-				else if(ch=='1' && st_top=='0'||ch=='0'&&st_top=='1') {
-					curr_state = q0;
-					pop();
-				}
-				else if(ch=='\0' && st_top=='$') {
-					curr_state = q0;
-				}
-				break;
-		}
+	enum states curr_state;
+	switch(s) {
+		case q0:
+			if(ch=='e' && st_top=='e') {
+				curr_state = q0;
+				push('$');
+			} else if(ch=='0' && (st_top=='$' ||st_top=='0')) {
+				curr_state = q0;
+				push(ch);
+			} else if(ch=='1' && (st_top=='$'||st_top=='1')) {
+				curr_state = q0;
+				push(ch);
+			} else if(ch=='1' && st_top=='0'||ch=='0'&&st_top=='1') {
+				curr_state = q0;
+				pop();
+			} else if(ch=='\0' && st_top=='$') {
+				curr_state = q0;
+			}
+			break;
+	}
 	return curr_state;
 }
-
 
 char get_stack_top() {
 	return (s.symbols[s.top]);
 }
 
 void push(char ch) {
-	if(s.top<MAX-1 ) {
+	if (s.top<MAX_INPUT_LENGTH-1 ) {
 	  	s.symbols[++s.top] = ch;
-	  }
-	else {
+	} else {
 		printf("\n Stack Full.");
 	}
 }
 
 void pop() {
-	if(s.top>-1) {
+	if (s.top>-1) {
 		s.symbols[s.top]=' ';
 		s.top--;
-	}
-	else
-	printf("\n Stack Empty.");
+	} else 
+		printf("\n Stack Empty.");
 }

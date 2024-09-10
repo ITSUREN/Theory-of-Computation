@@ -1,18 +1,19 @@
 #include<stdio.h>
 #include<string.h>
-#define MAX 20
+#define MAX_INPUT_LENGTH 20
 
+// function prototyping
 void find_prefix(char string[]);
 void find_suffix(char string[]);
 void find_substring(char string[], int, int);
 
 int main() {
-    char string[MAX];
+    char string[MAX_INPUT_LENGTH];
     int i, j;
 
     printf("Enter a string: ");
     // Use fgets instead of gets
-    fgets(string, MAX, stdin);
+    fgets(string, MAX_INPUT_LENGTH, stdin);
     string[strcspn(string, "\n")] = '\0';  // Removes the trailing newline from fgets
 
     printf("\n Prefixes:");

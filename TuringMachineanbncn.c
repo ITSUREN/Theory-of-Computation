@@ -11,7 +11,7 @@ bool turing_machine(char tape[], int tape_length);
 int main() {
     char tape[MAX_TAPE_LENGTH];
     
-    printf("Enter a string (consisting of 'a', 'b', and 'c'): ");
+    printf("Enter a string: ");
     fgets(tape, MAX_TAPE_LENGTH, stdin);
     tape[strcspn(tape, "\n")] = 0; // Remove newline character if present
 
@@ -21,13 +21,12 @@ int main() {
         return 0;
     }
 
-    // Run the Turing machine
+    // Runing the Turing machine
     if (turing_machine(tape, tape_length)) {
         printf("\nThe string is accepted by the Turing machine.\n");
     } else {
         printf("\nThe string is not accepted by the Turing machine.\n");
     }
-
     return 0;
 }
 
@@ -36,7 +35,6 @@ bool turing_machine(char tape[], int tape_length) {
     int head = 0;
 
     while (state != q5) {
-        printf("\n Current Tape: %s and current state q%d with head value %d and read char %c", tape, state, head, tape[head]);
         switch (state) {
             case q0:
                 if (tape[head] == 'a') {

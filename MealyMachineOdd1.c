@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX 100
+#define MAX_INPUT_LENGTH 100
 
 // Define states and transition function
 typedef enum { q0, q1 } State;
 void delta(State, char, State *, int *);
 
 int main() {
-    char input[MAX];
+    char input[MAX_INPUT_LENGTH];
     State current_state = q0; State next_state;
     int output;
     
-    printf("Enter a binary string: ");
-    fgets(input, MAX, stdin);
+    printf("\nEnter a binary string: ");
+    fgets(input, MAX_INPUT_LENGTH, stdin);
     input[strcspn(input, "\n")] = 0;
     
     for (int i = 0; i < strlen(input); ++i) {

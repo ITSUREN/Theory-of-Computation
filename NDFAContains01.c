@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#define MAX 20
+#define MAX_INPUT_LENGTH 20
 #define STATE_COUNT 3
 
 // Define states
@@ -10,10 +10,10 @@ void delta(const bool current_states[], char ch, bool next_states[]);
 bool process_input(const char *string);
 
 int main() {
-    char string[MAX];
+    char string[MAX_INPUT_LENGTH];
     
     printf("Enter a string: ");
-    fgets(string, MAX, stdin);
+    fgets(string, MAX_INPUT_LENGTH, stdin);
     string[strcspn(string, "\n")] = 0;
     
     if (process_input(string)) {

@@ -1,18 +1,19 @@
 // Implement DFA that accepts strings with sub string 001 over {0,1}
 #include<stdio.h>
 #include <string.h>
-#define MAX 20
+#define MAX_INPUT_LENGTH 20
 
-enum states { q0,q1,q2,qf };
+// State Definitions
+enum states { q0, q1, q2, qf };
 enum states delta(enum states, char);
 
 int main() {
 	enum states curr_state = q0;
-	char string[MAX], ch;
+	char string[MAX_INPUT_LENGTH], ch;
 	int i=0;
 	
 	printf("Enter a string: ");
-	fgets(string, MAX, stdin);
+	fgets(string, MAX_INPUT_LENGTH, stdin);
 	string[strcspn(string,"\n")] = 0;
 	
 	ch = string[i];
@@ -31,7 +32,6 @@ int main() {
 
 enum states delta(enum states s, char ch) {
 	enum states curr_state;
-	
 	switch(s) {
 		case q0:
 			if(ch=='0')
@@ -54,6 +54,6 @@ enum states delta(enum states s, char ch) {
 		case qf:
 			if(ch=='0'||ch=='1')
 			   curr_state = qf;
-		}
-		return curr_state;
+	}
+	return curr_state;
 } 

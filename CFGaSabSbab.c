@@ -2,32 +2,32 @@
 #include <string.h>
 #include <stdbool.h>
 
-#define MAX 100
+#define MAX_INPUT_LENGTH 100
 
 // brute parser prototyping
-bool parse_S(const char *input, int start, int end);
+bool parse(const char *input, int start, int end);
 
 int main() {
-    char input[MAX];
+    char input[MAX_INPUT_LENGTH];
     int length;
 
-    printf("Enter a string (consisting of only 'a' and 'b'): ");
-    fgets(input, MAX, stdin);
+    printf("\nEnter the string: ");
+    fgets(input, MAX_INPUT_LENGTH, stdin);
     input[strcspn(input, "\n")] = 0; // Remove newline character if present
 
     length = strlen(input);
     
-    if (parse_S(input, 0, length - 1)) {
-        printf("The string \"%s\" is accepted by the CFG.\n", input);
+    if (parse(input, 0, length - 1)) {
+        printf("The string %s is accepted by the CFG.\n", input);
     } else {
-        printf("The string \"%s\" is not accepted by the CFG.\n", input);
+        printf("The string %s is not accepted by the CFG.\n", input);
     }
 
     return 0;
 }
 
 // Check if a substring from `start` to `end` matches the CFG rule
-bool parse_S(const char *input, int start, int end) {
+bool parse(const char *input, int start, int end) {
     if (start > end) {
         return false;
     }
@@ -39,12 +39,12 @@ bool parse_S(const char *input, int start, int end) {
 
     // Try matching the rule S -> aSa
     if (input[start] == 'a' && input[end] == 'a') {
-        return parse_S(input, start + 1, end - 1);
+        return parse(input, start + 1, end - 1);
     }
 
     // Try matching the rule S -> bSb
     if (input[start] == 'b' && input[end] == 'b') {
-        return parse_S(input, start + 1, end - 1);
+        return parse(input, start + 1, end - 1);
     }
 
     return false;
